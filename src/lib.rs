@@ -203,7 +203,7 @@ impl<T: Clone + Integer> Ratio<T> {
         if *self < Zero::zero() {
             let one: T = One::one();
             Ratio::from_integer(
-                (self.numer.clone() - self.denom.clone() + one) / self.denom.clone(),
+                (self.numer.clone() + one.clone()) / self.denom.clone() - one
             )
         } else {
             Ratio::from_integer(self.numer.clone() / self.denom.clone())
@@ -218,7 +218,7 @@ impl<T: Clone + Integer> Ratio<T> {
         } else {
             let one: T = One::one();
             Ratio::from_integer(
-                (self.numer.clone() + self.denom.clone() - one) / self.denom.clone(),
+                (self.numer.clone() - one.clone()) / self.denom.clone() + one
             )
         }
     }
@@ -2702,6 +2702,16 @@ mod test {
         assert_eq!(_large_rat6.round(), _neg1);
         assert_eq!(_large_rat7.round(), Zero::zero());
         assert_eq!(_large_rat8.round(), Zero::zero());
+
+        assert_eq!(_large_rat1.floor(), One::one());
+        assert_eq!(_large_rat2.ceil(), One::one());
+        assert_eq!(_large_rat3.ceil(), One::one());
+        assert_eq!(_large_rat4.floor(), One::one());
+        assert_eq!(_large_rat5.floor(), _neg1);
+        assert_eq!(_large_rat6.ceil(), _neg1);
+        assert_eq!(_large_rat7.ceil(), Zero::zero());
+        assert_eq!(_large_rat8.floor(), Zero::zero());
+
     }
 
     #[test]
