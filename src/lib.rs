@@ -120,7 +120,7 @@ impl<T: Clone + Integer> Ratio<T> {
     /// Converts to an integer, rounding towards zero.
     #[inline]
     pub fn to_integer(&self) -> T {
-        self.trunc().numer
+        self.numer.clone() / self.denom.clone()
     }
 
     /// Returns true if the rational number is an integer (denominator is 1).
